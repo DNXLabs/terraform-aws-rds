@@ -202,7 +202,7 @@ variable "family" {
 variable "create_db_option_group" {
   description = "(Optional) Create a database option group"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "option_group_name" {

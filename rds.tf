@@ -65,10 +65,10 @@ resource "aws_db_parameter_group" "rds_custom_db_pg" {
 resource "aws_db_option_group" "rds_custom_db_og" {
   count = var.create_db_option_group ? 1 : 0
 
-  name                  = var.option_group_name
-  description           = var.option_group_description
-  engine_name           = var.engine
-  major_engine_version  = var.major_engine_version
+  name                     = var.option_group_name
+  option_group_description = var.option_group_description
+  engine_name              = var.engine
+  major_engine_version     = var.major_engine_version
   option {
     option_name = var.option_group_name
     dynamic "option_settings" {
