@@ -25,8 +25,10 @@ resource "aws_db_instance" "rds_db" {
   multi_az                     = var.multi_az
   storage_encrypted            = var.storage_encrypted
   parameter_group_name         = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
+  option_group_name            = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
   deletion_protection          = var.deletion_protection
   performance_insights_enabled = var.performance_insights_enabled
+  enabled_cloudwatch_logs_exports = try(local.workspace.db.enabled_cloudwatch_logs_exports, null)
 
   tags = {
     Backup = var.backup
@@ -37,8 +39,7 @@ resource "aws_db_instance" "rds_db" {
 resource "aws_db_parameter_group" "rds_custom_db_pg" {
   count = var.create_db_parameter_group ? 1 : 0
 
-  name = var.parameter_group_name
-  #name_prefix = local.name_prefix
+  name        = var.parameter_group_name
   description = var.parameter_group_description
   family      = var.family
 
@@ -53,6 +54,34 @@ resource "aws_db_parameter_group" "rds_custom_db_pg" {
 
   tags = {
     "Name" = var.parameter_group_name
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+
+resource "aws_db_option_group" "rds_custom_db_og" {
+  count = var.create_db_option_group ? 1 : 0
+
+  name                  = var.option_group_name
+  description           = var.option_group_description
+  engine_name           = var.engine
+  major_engine_version  = var.major_engine_version
+  option {
+    option_name = var.option_group_name
+    dynamic "option_settings" {
+      for_each = var.options
+      content {
+        name   = option_settings.value.name
+        value  = option_settings.value.value
+      }
+    }
+  }
+
+  tags = {
+    "Name" = var.option_group_name
   }
 
   lifecycle {
