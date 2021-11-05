@@ -276,12 +276,12 @@ variable "enabled_cloudwatch_logs_exports" {
 
 variable "option_name" {
   description = "(Required) The Name of the Option"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "publicly_accessible" {
   description = "(Optional) Bool to control if instance is publicly accessible"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }

@@ -4,31 +4,31 @@ resource "random_string" "rds_db_password" {
 }
 
 resource "aws_db_instance" "rds_db" {
-  count                        = var.db_type == "rds" ? 1 : 0
-  publicly_accessible          = var.publicly_accessible
-  allocated_storage            = var.allocated_storage
-  max_allocated_storage        = var.max_allocated_storage
-  storage_type                 = "gp2"
-  engine                       = var.engine
-  engine_version               = var.engine_version
-  instance_class               = var.instance_class
-  name                         = var.database_name
-  backup_retention_period      = var.retention
-  identifier                   = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
-  username                     = var.user
-  password                     = random_string.rds_db_password.result
-  db_subnet_group_name         = try(aws_db_subnet_group.rds_subnet_group[0].id, var.db_subnet_group_id)
-  vpc_security_group_ids       = [aws_security_group.rds_db.id]
-  apply_immediately            = var.apply_immediately
-  skip_final_snapshot          = var.skip_final_snapshot
-  snapshot_identifier          = var.snapshot_identifier != "" ? var.snapshot_identifier : null
-  kms_key_id                   = var.kms_key_arn
-  multi_az                     = var.multi_az
-  storage_encrypted            = var.storage_encrypted
-  parameter_group_name         = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
-  option_group_name            = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
-  deletion_protection          = var.deletion_protection
-  performance_insights_enabled = var.performance_insights_enabled
+  count                           = var.db_type == "rds" ? 1 : 0
+  publicly_accessible             = var.publicly_accessible
+  allocated_storage               = var.allocated_storage
+  max_allocated_storage           = var.max_allocated_storage
+  storage_type                    = "gp2"
+  engine                          = var.engine
+  engine_version                  = var.engine_version
+  instance_class                  = var.instance_class
+  name                            = var.database_name
+  backup_retention_period         = var.retention
+  identifier                      = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
+  username                        = var.user
+  password                        = random_string.rds_db_password.result
+  db_subnet_group_name            = try(aws_db_subnet_group.rds_subnet_group[0].id, var.db_subnet_group_id)
+  vpc_security_group_ids          = [aws_security_group.rds_db.id]
+  apply_immediately               = var.apply_immediately
+  skip_final_snapshot             = var.skip_final_snapshot
+  snapshot_identifier             = var.snapshot_identifier != "" ? var.snapshot_identifier : null
+  kms_key_id                      = var.kms_key_arn
+  multi_az                        = var.multi_az
+  storage_encrypted               = var.storage_encrypted
+  parameter_group_name            = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
+  option_group_name               = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
+  deletion_protection             = var.deletion_protection
+  performance_insights_enabled    = var.performance_insights_enabled
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
 
   tags = {
@@ -75,8 +75,8 @@ resource "aws_db_option_group" "rds_custom_db_og" {
     dynamic "option_settings" {
       for_each = var.options
       content {
-        name   = option_settings.value.name
-        value  = option_settings.value.value
+        name  = option_settings.value.name
+        value = option_settings.value.value
       }
     }
   }
