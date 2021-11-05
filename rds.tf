@@ -5,6 +5,7 @@ resource "random_string" "rds_db_password" {
 
 resource "aws_db_instance" "rds_db" {
   count                        = var.db_type == "rds" ? 1 : 0
+  publicly_accessible          = var.publicly_accessible
   allocated_storage            = var.allocated_storage
   max_allocated_storage        = var.max_allocated_storage
   storage_type                 = "gp2"
@@ -28,7 +29,7 @@ resource "aws_db_instance" "rds_db" {
   option_group_name            = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
   deletion_protection          = var.deletion_protection
   performance_insights_enabled = var.performance_insights_enabled
-  enabled_cloudwatch_logs_exports = try(local.workspace.db.enabled_cloudwatch_logs_exports, null)
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
 
   tags = {
     Backup = var.backup
@@ -70,7 +71,7 @@ resource "aws_db_option_group" "rds_custom_db_og" {
   engine_name              = var.engine
   major_engine_version     = var.major_engine_version
   option {
-    option_name = var.option_group_name
+    option_name = var.option_name
     dynamic "option_settings" {
       for_each = var.options
       content {
