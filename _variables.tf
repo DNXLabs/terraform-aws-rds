@@ -125,6 +125,7 @@ variable "allocated_storage" {
 variable "storage_encrypted" {
   type        = bool
   description = "Enables storage encryption"
+  default     = true
 }
 
 variable "kms_key_arn" {
