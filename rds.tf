@@ -129,5 +129,10 @@ resource "aws_db_instance" "rds_replica" {
   vpc_security_group_ids = [aws_security_group.rds_db.id]
   storage_encrypted      = var.storage_encrypted
   db_subnet_group_name   = try(var.db_subnet_group_replica_id, null)
-  publicly_accessible    = var.publicly_accessible_replica
+  publicly_accessible             = var.publicly_accessible_replica
+  lifecycle {
+    ignore_changes = [
+      replicate_source_db
+    ]
+  }
 }
