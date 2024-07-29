@@ -120,16 +120,19 @@ resource "aws_iam_role" "rds_monitoring" {
 resource "aws_db_instance" "rds_replica" {
   count                  = var.db_type == "rds" && var.enable_replica ? 1 : 0
   identifier             = var.identifier == "" ? "${var.environment_name}-${var.name}-replica" : "${var.identifier}-replica"
-  engine                 = var.engine
-  engine_version         = var.engine_version
   instance_class         = var.instance_class_replica == null ? var.instance_class : var.instance_class_replica
   allocated_storage      = var.allocated_storage
   storage_type           = var.storage_type
-  username               = var.user
-  password               = random_string.rds_db_password.result
   parameter_group_name   = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
   skip_final_snapshot    = var.skip_final_snapshot
-  replicate_source_db    = aws_db_instance.rds_db[0].id
+  replicate_source_db    = aws_db_instance.rds_db[0].arn
   vpc_security_group_ids = [aws_security_group.rds_db.id]
   storage_encrypted      = var.storage_encrypted
+  db_subnet_group_name   = try(var.db_subnet_group_replica_id, null)
+  publicly_accessible             = var.publicly_accessible_replica
+  lifecycle {
+    ignore_changes = [
+      replicate_source_db
+    ]
+  }
 }

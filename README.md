@@ -38,6 +38,7 @@
 | database\_name | Database Name | `string` | `""` | no |
 | db\_parameters | A list of DB parameters (map) to apply | `list(map(string))` | `[]` | no |
 | db\_subnet\_group\_id | RDS Subnet Group Name | `string` | n/a | yes |
+| db\_subnet\_group\_replica\_id | RDS Subnet Group Name | `string` | n/a | yes |
 | db\_subnet\_group\_subnet\_ids | List of Subnet IDs for the RDS Subnet Group | `list` | `[]` | no |
 | db\_type | Valid values are: rds, aurora or serverless | `string` | n/a | yes |
 | deletion\_protection | The database can't be deleted when this value is set to true. | `bool` | `false` | no |
@@ -73,6 +74,7 @@
 | preferred\_backup\_window | (Aurora Only) The daily time range (in UTC) during which automated backups are created if they are enabled. Example: '09:46-10:16'. Must not overlap with maintenance\_window | `string` | `"07:00-09:00"` | no |
 | preferred\_maintenance\_window | (Aurora Only) The weekly time range during which system maintenance can occur, in (UTC) e.g., wed:04:00-wed:04:30 | `string` | `"Sun:04:00-Sun:05:00"` | no |
 | publicly\_accessible | (Optional) Bool to control if instance is publicly accessible | `bool` | `false` | no |
+| publicly\_accessible\_replica | (Optional) Bool to control if instance is publicly accessible | `bool` | `false` | no |
 | retention | Snapshot retention period in days | `number` | n/a | yes |
 | secret\_method | Use ssm for SSM parameters store which is the default option, or secretsmanager for AWS Secrets Manager | `string` | `"ssm"` | no |
 | skip\_final\_snapshot | Skips the final snapshot if the database is destroyed programatically | `bool` | `false` | no |

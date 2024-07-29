@@ -159,6 +159,11 @@ variable "db_subnet_group_id" {
   type        = string
 }
 
+variable "db_subnet_group_replica_id" {
+  description = "RDS Subnet Group Name"
+  type        = string
+}
+
 variable "db_subnet_group_subnet_ids" {
   description = "List of Subnet IDs for the RDS Subnet Group"
   default     = []
@@ -308,6 +313,12 @@ variable "option_name" {
 }
 
 variable "publicly_accessible" {
+  description = "(Optional) Bool to control if instance is publicly accessible"
+  type        = bool
+  default     = false
+}
+
+variable "publicly_accessible_replica" {
   description = "(Optional) Bool to control if instance is publicly accessible"
   type        = bool
   default     = false
