@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "rds_db_inbound_cidrs" {
   protocol          = "tcp"
   cidr_blocks       = var.allow_cidrs
   security_group_id = aws_security_group.rds_db.id
-  description       = "From CIDR ${join(", ", var.allow_cidrs)}"
+  description       = "From CIDR ${join(", ", slice(var.allow_cidrs, 0, 10))}"
 }
 
 resource "aws_security_group_rule" "rds_db_inbound_from_sg" {
