@@ -28,10 +28,26 @@ variable "allow_security_group_ids" {
   default     = []
 }
 
+variable "allow_security_group_ids_replica" {
+  type = list(object({
+    security_group_id = string
+    description       = string
+    name              = string
+  }))
+  description = "List of Security Group IDs to allow connection to this DB Replica"
+  default     = []
+}
+
 variable "allow_cidrs" {
   type        = list(string)
   default     = []
   description = "List of CIDRs to allow connection to this DB"
+}
+
+variable "allow_cidrs_replica" {
+  type        = list(string)
+  default     = []
+  description = "List of CIDRs to allow connection to this DB Replica"
 }
 
 variable "user" {

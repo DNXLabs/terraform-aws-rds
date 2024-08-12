@@ -126,7 +126,7 @@ resource "aws_db_instance" "rds_replica" {
   parameter_group_name   = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
   skip_final_snapshot    = var.skip_final_snapshot
   replicate_source_db    = aws_db_instance.rds_db[0].arn
-  vpc_security_group_ids = [aws_security_group.rds_db.id]
+  vpc_security_group_ids = [aws_security_group.rds_db_replica.id]
   storage_encrypted      = var.storage_encrypted
   db_subnet_group_name   = try(var.db_subnet_group_replica_id, null)
   publicly_accessible             = var.publicly_accessible_replica
