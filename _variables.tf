@@ -386,3 +386,9 @@ variable "instance_class_replica" {
   description = "Define instance class for read replica"
   default     = null
 }
+
+variable "enable_http_endpoint" {
+  type        = bool
+  description = "(Aurora Only) Enable HTTP endpoint (Data API)"
+  default     = false
+}
