@@ -86,6 +86,7 @@
 | storage\_type | The instance storage type | `string` | `"gp2"` | no |
 | user | DB User | `string` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
+| enable\_http\_endpoint | (Aurora Only) Enable HTTP endpoint (Data API) | `bool` | `false` | no |
 
 ## Outputs
 

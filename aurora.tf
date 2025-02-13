@@ -17,6 +17,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   apply_immediately                   = var.apply_immediately
   storage_encrypted                   = var.storage_encrypted
   kms_key_id                          = var.kms_key_arn
+  enable_http_endpoint                = var.enable_http_endpoint
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
