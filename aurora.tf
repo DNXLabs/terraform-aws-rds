@@ -18,6 +18,8 @@ resource "aws_rds_cluster" "aurora_cluster" {
   storage_encrypted                   = var.storage_encrypted
   kms_key_id                          = var.kms_key_arn
   enable_http_endpoint                = var.enable_http_endpoint
+  skip_final_snapshot                 = var.skip_final_snapshot
+
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
