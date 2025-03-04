@@ -44,6 +44,7 @@
 | db\_subnet\_group\_subnet\_ids | List of Subnet IDs for the RDS Subnet Group | `list` | `[]` | no |
 | db\_type | Valid values are: rds, aurora or serverless | `string` | n/a | yes |
 | deletion\_protection | The database can't be deleted when this value is set to true. | `bool` | `false` | no |
+| enable\_http\_endpoint | (Aurora Only) Enable HTTP endpoint (Data API) | `bool` | `false` | no |
 | enable\_replica | Enable read replica for RDS | `bool` | `false` | no |
 | enabled\_cloudwatch\_logs\_exports | (Optional) Set of log types to enable for exporting to CloudWatch logs. If omitted, no logs will be exported. Valid values (depending on engine) | `any` | `null` | no |
 | engine | n/a | `string` | n/a | yes |
@@ -86,7 +87,6 @@
 | storage\_type | The instance storage type | `string` | `"gp2"` | no |
 | user | DB User | `string` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
-| enable\_http\_endpoint | (Aurora Only) Enable HTTP endpoint (Data API) | `bool` | `false` | no |
 
 ## Outputs
 
