@@ -4,40 +4,41 @@ resource "random_string" "rds_db_password" {
 }
 
 resource "aws_db_instance" "rds_db" {
-  count                           = var.db_type == "rds" ? 1 : 0
-  publicly_accessible             = var.publicly_accessible
-  allocated_storage               = var.allocated_storage
-  max_allocated_storage           = var.max_allocated_storage
-  storage_type                    = var.storage_type
-  iops                            = var.iops
-  license_model                   = var.license_model
-  engine                          = var.engine
-  engine_version                  = var.engine_version
-  instance_class                  = var.instance_class
-  db_name                         = var.database_name
-  backup_retention_period         = var.retention
-  identifier                      = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
-  username                        = var.user
-  password                        = random_string.rds_db_password.result
-  db_subnet_group_name            = try(aws_db_subnet_group.rds_subnet_group[0].id, var.db_subnet_group_id)
-  vpc_security_group_ids          = [aws_security_group.rds_db.id]
-  apply_immediately               = var.apply_immediately
-  skip_final_snapshot             = var.skip_final_snapshot
-  snapshot_identifier             = var.snapshot_identifier != "" ? var.snapshot_identifier : null
-  kms_key_id                      = var.kms_key_arn
-  multi_az                        = var.multi_az
-  storage_encrypted               = var.storage_encrypted
-  parameter_group_name            = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
-  option_group_name               = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
-  deletion_protection             = var.deletion_protection
-  performance_insights_enabled    = var.performance_insights_enabled
-  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
-  monitoring_interval             = var.monitoring_interval
-  monitoring_role_arn             = var.monitoring_interval > 0 ? aws_iam_role.rds_monitoring[count.index].arn : ""
-  maintenance_window              = var.maintenance_window
-  backup_window                   = var.backup_window
-  final_snapshot_identifier       = var.final_snapshot_identifier == "" ? "${var.environment_name}-${var.name}-final-snapshot" : var.final_snapshot_identifier
-  auto_minor_version_upgrade      = var.auto_minor_version_upgrade
+  count                               = var.db_type == "rds" ? 1 : 0
+  publicly_accessible                 = var.publicly_accessible
+  allocated_storage                   = var.allocated_storage
+  max_allocated_storage               = var.max_allocated_storage
+  storage_type                        = var.storage_type
+  iops                                = var.iops
+  license_model                       = var.license_model
+  engine                              = var.engine
+  engine_version                      = var.engine_version
+  instance_class                      = var.instance_class
+  db_name                             = var.database_name
+  backup_retention_period             = var.retention
+  identifier                          = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
+  username                            = var.user
+  password                            = random_string.rds_db_password.result
+  iam_database_authentication_enabled = var.iam_database_authentication_enabled
+  db_subnet_group_name                = try(aws_db_subnet_group.rds_subnet_group[0].id, var.db_subnet_group_id)
+  vpc_security_group_ids              = [aws_security_group.rds_db.id]
+  apply_immediately                   = var.apply_immediately
+  skip_final_snapshot                 = var.skip_final_snapshot
+  snapshot_identifier                 = var.snapshot_identifier != "" ? var.snapshot_identifier : null
+  kms_key_id                          = var.kms_key_arn
+  multi_az                            = var.multi_az
+  storage_encrypted                   = var.storage_encrypted
+  parameter_group_name                = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
+  option_group_name                   = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
+  deletion_protection                 = var.deletion_protection
+  performance_insights_enabled        = var.performance_insights_enabled
+  enabled_cloudwatch_logs_exports     = var.enabled_cloudwatch_logs_exports
+  monitoring_interval                 = var.monitoring_interval
+  monitoring_role_arn                 = var.monitoring_interval > 0 ? aws_iam_role.rds_monitoring[count.index].arn : ""
+  maintenance_window                  = var.maintenance_window
+  backup_window                       = var.backup_window
+  final_snapshot_identifier           = var.final_snapshot_identifier == "" ? "${var.environment_name}-${var.name}-final-snapshot" : var.final_snapshot_identifier
+  auto_minor_version_upgrade          = var.auto_minor_version_upgrade
   tags = {
     Backup     = var.backup
     Identifier = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
@@ -129,7 +130,7 @@ resource "aws_db_instance" "rds_replica" {
   vpc_security_group_ids = [aws_security_group.rds_db_replica.id]
   storage_encrypted      = var.storage_encrypted
   db_subnet_group_name   = try(var.db_subnet_group_replica_id, null)
-  publicly_accessible             = var.publicly_accessible_replica
+  publicly_accessible    = var.publicly_accessible_replica
   lifecycle {
     ignore_changes = [
       replicate_source_db
