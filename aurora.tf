@@ -23,16 +23,16 @@ resource "aws_rds_cluster" "aurora_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count                       = var.db_type == "aurora" ? var.count_aurora_instances : 0
-  identifier                  = var.identifier == "" ? "${var.environment_name}-${var.name}-${count.index}" : "${var.identifier}-${count.index}"
-  cluster_identifier          = aws_rds_cluster.aurora_cluster[0].id
-  instance_class              = var.instance_class
-  engine                      = aws_rds_cluster.aurora_cluster[0].engine
-  engine_version              = aws_rds_cluster.aurora_cluster[0].engine_version
-  db_parameter_group_name     = var.create_db_parameter_group == true ? aws_db_parameter_group.aurora_custom_db_pg[count.index].name : ""
-  publicly_accessible         = var.publicly_accessible
-  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
-  monitoring_interval         = var.monitoring_interval
+  count                      = var.db_type == "aurora" ? var.count_aurora_instances : 0
+  identifier                 = var.identifier == "" ? "${var.environment_name}-${var.name}-${count.index}" : "${var.identifier}-${count.index}"
+  cluster_identifier         = aws_rds_cluster.aurora_cluster[0].id
+  instance_class             = var.instance_class
+  engine                     = aws_rds_cluster.aurora_cluster[0].engine
+  engine_version             = aws_rds_cluster.aurora_cluster[0].engine_version
+  db_parameter_group_name    = var.create_db_parameter_group == true ? aws_db_parameter_group.aurora_custom_db_pg[count.index].name : ""
+  publicly_accessible        = var.publicly_accessible
+  auto_minor_version_upgrade = var.auto_minor_version_upgrade
+  monitoring_interval        = var.monitoring_interval
 }
 
 resource "aws_rds_cluster_parameter_group" "custom_cluster_pg" {
