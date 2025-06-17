@@ -19,6 +19,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   kms_key_id                          = var.kms_key_arn
   enable_http_endpoint                = var.enable_http_endpoint
   skip_final_snapshot                 = var.skip_final_snapshot
+  deletion_protection                 = var.deletion_protection
 
 }
 
