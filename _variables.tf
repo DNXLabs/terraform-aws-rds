@@ -392,3 +392,15 @@ variable "enable_http_endpoint" {
   description = "(Aurora Only) Enable HTTP endpoint (Data API)"
   default     = false
 }
+
+variable "additional_sg_ids" {
+  description = "List of additional security group IDs to attach to the RDS"
+  type        = list(string)
+  default     = []
+}
+
+variable "tags" {
+  description = "A map of tags to assign to the RDS"
+  type        = map(string)
+  default     = {}
+}

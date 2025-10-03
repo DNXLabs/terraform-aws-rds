@@ -21,7 +21,7 @@ resource "aws_db_instance" "rds_db" {
   password                            = random_string.rds_db_password.result
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
   db_subnet_group_name                = try(aws_db_subnet_group.rds_subnet_group[0].id, var.db_subnet_group_id)
-  vpc_security_group_ids              = [aws_security_group.rds_db.id]
+  vpc_security_group_ids              = concat([aws_security_group.rds_db.id], var.additional_sg_ids)
   apply_immediately                   = var.apply_immediately
   skip_final_snapshot                 = var.skip_final_snapshot
   snapshot_identifier                 = var.snapshot_identifier != "" ? var.snapshot_identifier : null
@@ -39,10 +39,13 @@ resource "aws_db_instance" "rds_db" {
   backup_window                       = var.backup_window
   final_snapshot_identifier           = var.final_snapshot_identifier == "" ? "${var.environment_name}-${var.name}-final-snapshot" : var.final_snapshot_identifier
   auto_minor_version_upgrade          = var.auto_minor_version_upgrade
-  tags = {
-    Backup     = var.backup
-    Identifier = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
-  }
+  tags = merge(
+    var.tags,
+    {
+      Backup     = var.backup
+      Identifier = var.identifier == "" ? "${var.environment_name}-${var.name}" : var.identifier
+    }
+  )
 }
 
 resource "aws_db_parameter_group" "rds_custom_db_pg" {

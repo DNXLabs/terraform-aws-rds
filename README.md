@@ -22,6 +22,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| additional\_sg\_ids | List of additional security group IDs to attach to the RDS | `list(string)` | `[]` | no |
 | allocated\_storage | Storage size in GB | `number` | `null` | no |
 | allow\_cidrs | List of CIDRs to allow connection to this DB | `list(string)` | `[]` | no |
 | allow\_cidrs\_replica | List of CIDRs to allow connection to this DB Replica | `list(string)` | `[]` | no |
@@ -85,6 +86,7 @@
 | ssm\_kms\_key\_id | KMS Key Id to use a CMK instead of default shared key for SSM parameters | `string` | `""` | no |
 | storage\_encrypted | Enables storage encryption | `bool` | `true` | no |
 | storage\_type | The instance storage type | `string` | `"gp2"` | no |
+| tags | A map of tags to assign to the RDS | `map(string)` | `{}` | no |
 | user | DB User | `string` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
 
