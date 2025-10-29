@@ -253,6 +253,12 @@ variable "create_db_option_group" {
   default     = false
 }
 
+variable "use_existing_option_group" {
+  description = "(Optional) Use existing database option group"
+  type        = bool
+  default     = false
+}
+
 variable "option_group_name" {
   description = "Name of the option group"
   type        = string

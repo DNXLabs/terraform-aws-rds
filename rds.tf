@@ -29,7 +29,7 @@ resource "aws_db_instance" "rds_db" {
   multi_az                            = var.multi_az
   storage_encrypted                   = var.storage_encrypted
   parameter_group_name                = var.create_db_parameter_group == true ? aws_db_parameter_group.rds_custom_db_pg[count.index].name : ""
-  option_group_name                   = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : ""
+  option_group_name                   = var.create_db_option_group == true ? aws_db_option_group.rds_custom_db_og[count.index].name : (var.use_existing_option_group ? var.option_group_name : "")
   deletion_protection                 = var.deletion_protection
   performance_insights_enabled        = var.performance_insights_enabled
   enabled_cloudwatch_logs_exports     = var.enabled_cloudwatch_logs_exports
