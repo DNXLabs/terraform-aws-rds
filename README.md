@@ -87,6 +87,7 @@
 | storage\_encrypted | Enables storage encryption | `bool` | `true` | no |
 | storage\_type | The instance storage type | `string` | `"gp2"` | no |
 | tags | A map of tags to assign to the RDS | `map(string)` | `{}` | no |
+| use\_existing\_option\_group | (Optional) Use existing database option group | `bool` | `false` | no |
 | user | DB User | `string` | n/a | yes |
 | vpc\_id | n/a | `string` | n/a | yes |
 
