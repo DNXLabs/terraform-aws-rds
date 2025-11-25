@@ -39,6 +39,7 @@ resource "aws_db_instance" "rds_db" {
   backup_window                       = var.backup_window
   final_snapshot_identifier           = var.final_snapshot_identifier == "" ? "${var.environment_name}-${var.name}-final-snapshot" : var.final_snapshot_identifier
   auto_minor_version_upgrade          = var.auto_minor_version_upgrade
+  allow_major_version_upgrade	      = var.allow_major_version_upgrade
   tags = merge(
     var.tags,
     {
