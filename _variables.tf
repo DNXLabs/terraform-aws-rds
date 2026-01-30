@@ -416,3 +416,21 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "max_capacity" {
+  type        = number
+  default     = 128
+  description = "The maximum capacity of the RDS Serverless v2 cluster."
+}
+
+variable "min_capacity" {
+  type        = number
+  default     = 1
+  description = "The minimum capacity of the RDS Serverless v2 cluster."
+}
+
+variable "seconds_until_auto_pause" {
+  type        = number
+  default     = 3600
+  description = "The amount of time in seconds after which the RDS Serverless v2 cluster should automatically pause with no connections."
+}
