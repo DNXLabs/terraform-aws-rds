@@ -64,6 +64,8 @@
 | maintenance\_window | (RDS Only) The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi'. Eg: 'Mon:00:00-Mon:03:00' | `string` | `"Sun:04:00-Sun:05:00"` | no |
 | major\_engine\_version | Specifies the major version of the engine that this option group should be associated with | `string` | `""` | no |
 | max\_allocated\_storage | Argument higher than the allocated\_storage to enable Storage Autoscaling, size in GB. 0 to disable Storage Autoscaling | `number` | `0` | no |
+| max\_capacity | The maximum capacity of the RDS Serverless v2 cluster. | `number` | `128` | no |
+| min\_capacity | The minimum capacity of the RDS Serverless v2 cluster. | `number` | `1` | no |
 | monitoring\_interval | The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance | `number` | `0` | no |
 | multi\_az | Deploy multi-az instance database | `bool` | `false` | no |
 | name | Name of this RDS Database | `string` | n/a | yes |
@@ -81,6 +83,7 @@
 | publicly\_accessible | (Optional) Bool to control if instance is publicly accessible | `bool` | `false` | no |
 | publicly\_accessible\_replica | (Optional) Bool to control if instance is publicly accessible | `bool` | `false` | no |
 | retention | Snapshot retention period in days | `number` | n/a | yes |
+| seconds\_until\_auto\_pause | The amount of time in seconds after which the RDS Serverless v2 cluster should automatically pause with no connections. | `number` | `3600` | no |
 | secret\_method | Use ssm for SSM parameters store which is the default option, or secretsmanager for AWS Secrets Manager | `string` | `"ssm"` | no |
 | skip\_final\_snapshot | Skips the final snapshot if the database is destroyed programatically | `bool` | `false` | no |
 | snapshot\_identifier | Pass a snapshot identifier for the database to be created from this snapshot | `string` | `""` | no |
